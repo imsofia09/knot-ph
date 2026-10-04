@@ -3,6 +3,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 function App() {
+   const [showAllCategories, setShowAllCategories] = useState(false);
   
   return (
 
@@ -150,13 +151,94 @@ function App() {
               </h2>
             </div>
 
-            <a href="#" className="text-pink-500 font-medium">
-              View all →
-            </a>
-          </div>
+          
+           <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setShowAllCategories(true);
+            }}
+            className="text-pink-500 font-medium hover:text-pink-600 transition"
+          >
+            View all →
+          </a>
+
+          {showAllCategories && (
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
+    onClick={() => setShowAllCategories(false)}
+  >
+    <div
+      className="relative w-full max-w-3xl rounded-3xl bg-white p-6 shadow-2xl"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Close Button */}
+      <button
+        onClick={() => setShowAllCategories(false)}
+        className="absolute right-5 top-4 text-2xl text-gray-400 hover:text-pink-500"
+      >
+        ×
+      </button>
+
+      {/* Header */}
+      <div className="mb-6 text-center">
+        <h2 className="text-2xl font-bold text-gray-800">
+          Our Categories 🧶
+        </h2>
+
+        <p className="mt-1 text-sm text-gray-500">
+          Choose your favorite handmade goodies ♡
+        </p>
+      </div>
+
+      {/* Categories */}
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+        {[
+          ["🌸", "Crochet Flowers", "bg-pink-100"],
+          ["👜", "Crochet Bags", "bg-purple-100"],
+          ["🧸", "Amigurumi", "bg-yellow-100"],
+          ["🎀", "Accessories", "bg-rose-100"],
+          ["👒", "Crochet Hats", "bg-blue-100"],
+          ["🧣", "Scarves", "bg-green-100"],
+          ["💐", "Bouquets", "bg-pink-100"],
+          ["🏠", "Home Decor", "bg-orange-100"],
+          ["🐰", "Plushies", "bg-purple-100"],
+          ["💍", "Jewelry", "bg-yellow-100"],
+          ["👶", "Baby Items", "bg-blue-100"],
+          ["✨", "Custom Orders", "bg-rose-100"],
+        ].map(([icon, name, bg]) => (
+          <button
+            key={name}
+            className={`group flex flex-col items-center justify-center rounded-2xl ${bg} p-5 transition duration-300 hover:-translate-y-1 hover:shadow-md`}
+          >
+            <span className="mb-2 text-4xl transition-transform group-hover:scale-110">
+              {icon}
+            </span>
+
+            <span className="text-center text-sm font-semibold text-gray-700">
+              {name}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* Close */}
+      <div className="mt-6 text-center">
+        <button
+          onClick={() => setShowAllCategories(false)}
+          className="rounded-full bg-pink-500 px-6 py-2 text-sm font-medium text-white transition hover:bg-pink-600"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+      </div>
 
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+
 
             <div className="group cursor-pointer">
               <div className="bg-pink-100 rounded-2xl h-48 flex items-center justify-center text-6xl group-hover:bg-pink-200 transition">
