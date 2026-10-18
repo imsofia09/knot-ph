@@ -1,11 +1,17 @@
 import { Search, ShoppingBag, Heart, ArrowRight, Truck, Gift } from "lucide-react";
+
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import {Link} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 
-function App() {
-   const [showAllCategories, setShowAllCategories] = useState(false);
+function home() {
+  
+  
+   const [showAllCategories, setShowAllCategories] = useState(false); 
+  const [showCustomOrder, setShowCustomOrder] = useState(false);
+   
   
   return (
 
@@ -20,11 +26,60 @@ function App() {
           </div>
 
           <div className="hidden md:flex gap-8 text-sm font-medium items-center">
-            <a href="#" className="text-mauve font-bold">Home</a>
-            <a href="#" className="hover:text-mauve transition">Shop</a>
-            <a href="#" className="hover:text-mauve transition">Collections</a>
-            <a href="#" className="hover:text-mauve transition">About</a>
-            <a href="#" className="hover:text-mauve transition">Contact</a>
+            <a
+            href="#home"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="text-mauve font-bold"
+          >
+            Home
+          </a>
+
+          <a
+            href="#shop"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("shop")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="hover:text-mauve transition"
+          >
+            Shop
+          </a>
+
+          <a
+            href="#collections"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("collections")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="hover:text-mauve transition"
+          >
+            Collections
+          </a>
+
+          <a
+            href="#about"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="hover:text-mauve transition"
+          >
+            About
+          </a>
+
+          <a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="hover:text-mauve transition"
+          >
+            Contact
+          </a>
           </div>
 
           
@@ -50,7 +105,7 @@ function App() {
 
 
       {/* HERO */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
+      <section id="home" className="max-w-7xl mx-auto px-6 py-16 scroll-mt-20">
         <div className="bg-pink-100 rounded-3xl overflow-hidden">
 
           <div className="grid md:grid-cols-2 items-center">
@@ -139,7 +194,7 @@ function App() {
 
 
       {/* CATEGORIES */}
-      <section className="bg-white py-16">
+      <section id="collections" className="bg-white py-16 scroll-mt-20">
 
         <div className="max-w-7xl mx-auto px-6">
 
@@ -238,7 +293,7 @@ function App() {
 )}
       </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 scroll-mt-28">
 
 
             <div className="group cursor-pointer">
@@ -283,7 +338,7 @@ function App() {
 
 
       {/* PRODUCTS */}
-      <section className="py-16 bg-pink-50">
+      <section id="shop" className="py-16 bg-pink-50">
 
         <div className="max-w-7xl mx-auto px-6">
 
@@ -344,7 +399,7 @@ function App() {
 
 
       {/* CTA */}
-      <section className="py-20 bg-pink-400 text-ivory text-center">
+      <section id="contact" className="py-20 bg-pink-400 text-ivory text-center">
 
         <div className="max-w-2xl mx-auto px-6">
 
@@ -357,17 +412,126 @@ function App() {
             Let us create a custom crochet piece just for you.
           </p>
 
-          <button className="mt-8 bg-white text-pink-500 px-8 py-3 rounded-full font-semibold hover:bg-pink-50 transition">
-            Custom Order
-          </button>
+            <button
+              onClick={() => setShowCustomOrder(true)}
+             className="mt-8 bg-white text-pink-500 px-8 py-3 rounded-full font-semibold hover:bg-pink-200 transition">
+              Custom Order
+            </button>
 
+            {showCustomOrder && (
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
+    onClick={() => setShowCustomOrder(false)}
+  >
+    <div
+      className="relative w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Close Button */}
+      <button
+        onClick={() => setShowCustomOrder(false)}
+        className="absolute right-5 top-4 text-2xl text-gray-400 hover:text-pink-500"
+      >
+        &times;
+      </button>
+
+      {/* Modal Header */}
+      <div className="mb-6 text-center">
+        <h2 className="text-2xl font-bold text-gray-800">
+          Custom Crochet Order 🧶
+        </h2>
+
+        <p className="mt-2 text-sm text-gray-500">
+          Let us create something special just for you!
+        </p>
+      </div>
+
+      {/* Custom Order Form */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          alert("Your custom order form has been submitted!");
+          setShowCustomOrder(false);
+        }}
+        className="space-y-4"
+      >
+        <div>
+          <label className="mb-1 block text-sm font-medium text-gray-700">
+            Full Name
+          </label>
+          <input
+            type="text"
+            placeholder="Enter your full name"
+            required
+            className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-pink-400"
+          />
         </div>
+
+        <div>
+          <label className="mb-1 block text-sm font-medium text-gray-700">
+            Email Address
+          </label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            required
+            className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-pink-400"
+          />
+        </div>
+
+        <div>
+          <label className="mb-1 block text-sm font-medium text-gray-700">
+            Crochet Item
+          </label>
+          <select
+            required
+            defaultValue=""
+            className="w-full rounded-xl border border-gray-300 bg-white text-black px-4 py-3 outline-none focus:border-pink-400"
+          >
+            <option value="" disabled>
+              Select an item
+            </option>
+            <option value="flowers">Crochet Flowers</option>
+            <option value="bouquet">Flower Bouquet</option>
+            <option value="bag">Crochet Bags</option>
+            <option value="plushie">Plushies</option>
+            <option value="accessories">Accessories</option>
+            <option value="other">Other / Custom Design</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="mb-1 block text-sm font-medium text-gray-700">
+            Order Details
+          </label>
+          <textarea
+            placeholder="Describe your preferred design, colors, size, and quantity..."
+            required
+            rows={4}
+            className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-pink-400"
+          />
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full rounded-full bg-pink-500 py-3 font-semibold text-white transition hover:bg-pink-600"
+        >
+          Submit Custom Order ♡
+        </button>
+      </form>
+    </div>
+  </div>
+)}
+        </div>
+
+ 
 
       </section>
 
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white py-10">
+      <footer id="about" className="bg-gray-900 text-white py-10">
 
         <div className="max-w-7xl mx-auto px-6">
 
@@ -417,4 +581,4 @@ function App() {
   );
 }
 
-export default App;
+export default home;
